@@ -1,0 +1,307 @@
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/vimfiles/bundle/Vundle.vim/
+let path='~/vimfiles/bundle/'
+call vundle#begin(path)
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+Plugin 'mattn/emmet-vim'
+
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'kien/ctrlp.vim'
+
+Plugin 'bling/vim-airline'
+Plugin 'raimondi/delimitmate'
+Plugin 'L9'
+Plugin 'c.vim'
+Plugin 'flazz/vim-colorschemes'
+
+"Plugin 'scrooloose/nerdtree'
+"Plugin 'bronson/vim-trailing-whitespace'
+"Plugin 'sirver/ultisnips'
+
+
+call vundle#end()            " required
+
+
+filetype plugin indent on    " required
+
+let python_highlight_all=1
+syntax on
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set smarttab
+set expandtab
+set smartindent
+
+set nowrap
+set wildignore=*.pyc
+
+
+set autoindent
+set showmode
+set showcmd
+
+set ttyfast
+
+set wildmenu
+set laststatus=2
+
+
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+
+set incsearch
+set showmatch
+set hlsearch
+
+set nu
+set hidden
+
+set noerrorbells
+
+
+let mapleader=","
+
+"save as buffers
+au FocusLost * :wa
+
+nnoremap ; :
+
+
+let g:user_emmet_install_global = 0
+
+autocmd FileType html,css EmmetInstall
+autocmd FileType javascript,java,c nnoremap <buffer> <localleader>c I//<Esc>
+autocmd FileType python nnoremap <buffer> <localleader>c I#<Esc>
+
+
+" edit vimrc and source it
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+" put double quotes around the word on the cursor
+nnoremap <leader>" viw<Esc>a"<Esc>hbi"<Esc>lel
+nnoremap <leader>' viw<Esc>a'<Esc>hbi'<Esc>lel
+
+" put a semicolumn at the end of the line
+inoremap scc <Esc>mqA;<Esc>'q
+
+
+nnoremap <S-H> <S-^>
+nnoremap <S-L> <S-$>
+
+"prevent F1 click
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" for practice of hjkl
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+inoremap <Esc> <nop>
+nnoremap j gj
+nnoremap k gk
+inoremap jk <Esc>
+
+set background=dark
+colorscheme obsidian2
+
+
+"autocmd vimenter * NERDTree
+"autocmd vimenter * wincmd p
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+syntax enable
+
+iabbrev retunr return
+iabbrev teh the
+iabbrev @@ kopotuwka@gmail.com
+iabbrev ssig Dong Son Trinh<cr>kopotuwka@gmail.com<cr>
+
+if v:progname =~? "evim"
+  finish
+endif
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+inoremap <C-BS> <C-W>
+
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+
+nmap <silent> ,/ :nohlsearch<CR>
+
+
+autocmd BufWritePre *.html :normal! gg=G
+autocmd BufWritePre,BufRead *.html setlocal nowrap
+
+
+" When writing conditionals, use ==# for case-SENSITIVE and ==? NONSENSITIVE
+
+
+if has("vms")
+  set nobackup		" do not keep a backup file, use versions instead
+else
+  set backup		" keep a backup file (restore to previous version)
+  set undofile		" keep an undo file (undo changes after closing)
+endif
+set history=50		" keep 50 lines of command line history
+set ruler		" show the cursor position all the time
+
+" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+" let &guioptions = substitute(&guioptions, "t", "", "g")
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+  set mouse=a
+endif
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  set langmenu=ru_RU.UTF-8
+  set lines=50 columns=150
+  set guifont=Consolas:h9
+  set encoding=utf-8
+  set fileencoding=utf-8
+  set fileencodings=utf-8,koi8-r,cp1251,default,latin1
+endif
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+    autocmd filetype python set expandtab
+    autocmd CompleteDone * pclose
+    autocmd GUIEnter * set vb t_vb= " for your GUI
+    autocmd VimEnter * set vb t_vb=
+
+    " Put these in an autocmd group, so that we can delete them easily.
+    augroup vimrcEx
+    au!
+
+    " For all text files set 'textwidth' to 78 characters.
+    autocmd FileType text setlocal textwidth=78
+
+      " When editing a file, always jump to the last known cursor position.
+      " Don't do it when the position is invalid or when inside an event handler
+      " (happens when dropping a file on gvim).
+    autocmd BufReadPost *
+        \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+
+    augroup END
+
+endif " has("autocmd")
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+    command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+        \ | wincmd p | diffthis
+endif
+
+if has('langmap') && exists('+langnoremap')
+  " Prevent that the langmap option applies to characters that result from a
+  " mapping.  If unset (default), this may break plugins (but it's backward
+  " compatible).
+  set langnoremap
+endif
+
+
+" Add optional packages.
+"
+" The matchit plugin makes the % command work better, but it is not backwards
+" compatible.
+packadd matchit
+
+
+
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+
+
+
+
+
+
+
+
+
+
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      if empty(&shellxquote)
+        let l:shxq_sav = ''
+        set shellxquote&
+      endif
+      let cmd = '"' . $VIMRUNTIME . '\diff"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
+  if exists('l:shxq_sav')
+    let &shellxquote=l:shxq_sav
+  endif
+endfunction
+
