@@ -169,8 +169,20 @@ autocmd BufWritePre *.html :normal! gg=G
 autocmd BufWritePre,BufRead *.html setlocal nowrap
 
 
+
+
+
 " When writing conditionals, use ==# for case-SENSITIVE and ==? NONSENSITIVE
 
+
+let g:user_emmet_settings = {
+  \  'xml' : {
+  \    'extends' : 'html',
+  \  },
+  \  'html' : {
+  \    'extends' : 'html',
+  \  },
+  \}
 
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
