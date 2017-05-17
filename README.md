@@ -10,10 +10,10 @@ Make sure you are able to use the commandline version of 'docker' and 'docker-co
 e.g. 'docker --version' and 'docker-compose --version'
 
 _Common Issues:_
-Docker complaining about tcp connection/proxy
-[Link to fix](https://docs.docker.com/engine/admin/systemd/#httphttps-proxy)
+- Docker complaining about tcp connection/proxy
+- [Link to fix](https://docs.docker.com/engine/admin/systemd/#httphttps-proxy)
 
-*Using both commands always requires permission, so consider going into root user mode (sudo su)*
+- *Using both commands always requires permission, so consider going into root user mode (sudo su)*
 
 ## Setup
 
