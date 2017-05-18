@@ -50,9 +50,7 @@ shows the information about running and stopped containers. Notice the *CONTAINE
 sudo docker stop $(sudo docker ps -a -q)
 ```
 stops all running containers
-```
-sudo docker rm $(sudo docker ps -a -q)
-```
+```sudo docker rm $(sudo docker ps -a -q)```
 removes all stopped containers
 ```
 sudo docker images
