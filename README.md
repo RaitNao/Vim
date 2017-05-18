@@ -33,7 +33,7 @@ e.g. `docker --version` and `docker-compose --version`
 - Go to `localhost:3002` in your browser which should load up the one-dash interface
 
 #### 4. Production version
-- Follow the previous steps, and *from same directory where you ran `docker-compose up`*
+- Follow the previous steps, and **from same directory where you ran `docker-compose up`**
 - `sudo docker-compose exec gulp_service gulp build`
 - In the production version there is no need to have gulp on watch, so to free the gulp service from its duty run `sudo docker-compose stop gulp_service`
 - You can alwayas restart the service by `sudo docker-compose up --no-deps -d gulp_service`
