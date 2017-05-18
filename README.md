@@ -5,7 +5,7 @@ This directory contains a config file that allows to spin up the _one-dash_ proj
 ## Prerequisites:
 - [docker](https://docs.docker.com/engine/installation/linux/ubuntu/) - follow the directions for the recommended approach. !! Make sure you do not have older version of docker (`sudo apt-get remove docker docker-engine`).
 - [docker-compose](https://docs.docker.com/compose/install/) - must be version >= 1.13 (or compose v3 it is called)
-- *one-dash* project. Because the docker containers will be running on the one-dash project you have. All changes to files outside the docker containers (*from your machine*) will be synchronized with the files in the environment.
+- **one-dash** project. Because the docker containers will be running on the one-dash project you have. All changes to files outside the docker containers (*from your machine*) will be synchronized with the files in the environment.
 
 Make sure you are able to use the commandline version of `docker` and `docker-compose`
 e.g. `docker --version` and `docker-compose --version`
@@ -23,7 +23,7 @@ e.g. `docker --version` and `docker-compose --version`
     - Once you are in the one-dash/docker/Dockerfiles directory
     - `sudo build -f Devbase_Dockerfile -t onedash/dev`
     - `sudo build -f Gulp_Dockerfile -t onedash/gulp`
-- *Recommended* Skip to next step as they will be pulled down when the resolving the dependencies
+- **Recommended** Skip to next step as they will be pulled down when the resolving the dependencies
 
 #### 2. Run it
 - Go to onedash/docker and run `sudo docker-compose up`
@@ -33,8 +33,7 @@ e.g. `docker --version` and `docker-compose --version`
 - Go to `localhost:3002` in your browser which should load up the one-dash interface
 
 #### 4. Production version
-- Follow the previous steps, and **from same directory where you ran `docker-compose up`**
-- `sudo docker-compose exec gulp_service gulp build`
+- Follow the previous steps, and **from same directory where you ran `docker-compose up`** `sudo docker-compose exec gulp_service gulp build`
 - In the production version there is no need to have gulp on watch, so to free the gulp service from its duty run `sudo docker-compose stop gulp_service`
 - You can alwayas restart the service by `sudo docker-compose up --no-deps -d gulp_service`
 
