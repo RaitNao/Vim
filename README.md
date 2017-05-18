@@ -42,15 +42,15 @@ e.g. `docker --version` and `docker-compose --version`
 ## Debugging/Documentation on commands
 
 #### Useful Commands
-- `sudo docker ps -a` -- shows the information about running and stopped containers. Notice the *CONTAINER_ID* and *NAMES*(if it exists). All commands that manipulate or inspect containers can be run with respect to those names
+- `sudo docker ps -a` -- shows the information about running and stopped containers. Notice the **CONTAINER_ID** and **NAMES**(if it exists). All commands that manipulate or inspect containers can be run with respect to those names
 - `sudo docker stop $(sudo docker ps -a -q)` -- stops all running containers
 - `sudo docker rm $(sudo docker ps -a -q)` -- removes all stopped containers
 - `sudo docker images` -- shows all images on the machine
 - `sudo docker rmi IMAGE` -- removes a docker image. A lot of images tend to pile up if you change Dockerfiles and rebuild them
 - `sudo docker network ls` -- lists all networks. The containers will be running on one of those networks
-- `sudo docker inspect [NETWORKNAME or CONTAINERNAME]` -- will show all info on the network, _containers_ in that network, their exposed ports, etc.
-- `sudo docker run --rm -it --entrypoint /bin/bash image` -- *run container from image in bash without executing any CMD defined in the image*
-- `sudo docker exec -it CONTAINER /bin/bash` -- *enter an ALREADY running container in bash*
+- `sudo docker inspect [NETWORKNAME or CONTAINERNAME]` -- will show all info on the network, containers in that network, their exposed ports, etc.
+- `sudo docker run --rm -it --entrypoint /bin/bash image` -- **run container from image in bash without executing any CMD defined in the image**
+- `sudo docker exec -it CONTAINER /bin/bash` -- enter an ALREADY running container in bash
 
 When using `docker-compose` commands, make sure you are in the same directory where the `docker-compose up` was run.
 
@@ -62,7 +62,7 @@ When using `docker-compose` commands, make sure you are in the same directory wh
 
 ## Deployment
 - [REPOSITORY:TAG] -- e.g. onedash/dev:latest
-- `sudo docker commit [OPTIONS] CONTAINER [REPOSITORY:TAG]` -- commit changes from CONTAINER to an IMAGE. Look in --help for OPTIONS. *Most often used* if commiting a image with new configurations
+- `sudo docker commit [OPTIONS] CONTAINER [REPOSITORY:TAG]` -- commit changes from CONTAINER to an IMAGE. Look in --help for OPTIONS. **Most often used** if commiting a image with new configurations
 - `sudo docker push NAME[:TAG]` -- push an image to a repository. (A public repository with the same NAME exists)
 - `sudo docker pull IMAGE[:TAG]`
 
