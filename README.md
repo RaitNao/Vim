@@ -10,7 +10,7 @@ This directory contains a config file that allows to spin up the _one-dash_ proj
 Make sure you are able to use the commandline version of `docker` and `docker-compose`
 e.g. `docker --version` and `docker-compose --version`
 
-_Common Issues:_
+### Common Issues:
 - Docker complaining about tcp connection/proxy [Link to fix](https://docs.docker.com/engine/admin/systemd/#httphttps-proxy)
 
 - Using both commands always requires permission, so consider going into root user mode (`sudo su`)
@@ -41,7 +41,7 @@ _Common Issues:_
 
 ## Debugging/Documentation on commands
 
-_Useful Commands_
+#### Useful Commands
 - `sudo docker ps -a` - shows the information about running and stopped containers. Notice the *CONTAINER_ID* and *NAMES*(if it exists). All commands that manipulate or inspect containers can be run with respect to those names
 - `sudo docker stop $(sudo docker ps -a -q)` - stops all running containers
 - `sudo docker rm $(sudo docker ps -a -q)` - removes all stopped containers
