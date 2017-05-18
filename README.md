@@ -52,7 +52,7 @@ e.g. `docker --version` and `docker-compose --version`
 - `sudo docker run --rm -it --entrypoint /bin/bash image` -- **run container from image in bash without executing any CMD defined in the image**
 - `sudo docker exec -it CONTAINER /bin/bash` -- enter an ALREADY running container in bash
 
-When using `docker-compose` commands, make sure you are in the same directory where the `docker-compose up` was run.
+##### When using `docker-compose` commands, make sure you are in the same directory where the `docker-compose up` was run.
 
 - `sudo docker-compose ps` -- shows all the services running at the moment
 - `sudo docker-compose up --no-deps -d SERVICENAME` -- start running a container without starting any linked services
