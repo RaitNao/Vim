@@ -42,15 +42,15 @@ e.g. `docker --version` and `docker-compose --version`
 ## Debugging/Documentation on commands
 
 #### Useful Commands
-- `sudo docker ps -a` - shows the information about running and stopped containers. Notice the *CONTAINER_ID* and *NAMES*(if it exists). All commands that manipulate or inspect containers can be run with respect to those names
-- `sudo docker stop $(sudo docker ps -a -q)` - stops all running containers
-- `sudo docker rm $(sudo docker ps -a -q)` - removes all stopped containers
-- `sudo docker images` - shows all images on the machine
-- `sudo docker rmi IMAGE` - removes a docker image. A lot of images tend to pile up if you change Dockerfiles and rebuild them
-- `sudo docker network ls` - lists all networks. The containers will be running on one of those networks
-- `sudo docker inspect [NETWORKNAME or CONTAINERNAME]` - will show all info on the network, _containers_ in that network, their exposed ports, etc.
-- `sudo docker run --rm -it --entrypoint /bin/bash image` - *run container from image in bash without executing any CMD defined in the image*
-- `sudo docker exec -it CONTAINER /bin/bash` - *enter an ALREADY running container in bash*
+__`sudo docker ps -a`__ - shows the information about running and stopped containers. Notice the *CONTAINER_ID* and *NAMES*(if it exists). All commands that manipulate or inspect containers can be run with respect to those names
+__`sudo docker stop $(sudo docker ps -a -q)`__ - stops all running containers
+__`sudo docker rm $(sudo docker ps -a -q)`__ - removes all stopped containers
+__`sudo docker images`__ - shows all images on the machine
+__`sudo docker rmi IMAGE`__ - removes a docker image. A lot of images tend to pile up if you change Dockerfiles and rebuild them
+__`sudo docker network ls`__ - lists all networks. The containers will be running on one of those networks
+__- `sudo docker inspect [NETWORKNAME or CONTAINERNAME]`__ - will show all info on the network, _containers_ in that network, their exposed ports, etc.
+__- `sudo docker run --rm -it --entrypoint /bin/bash image`__ - *run container from image in bash without executing any CMD defined in the image*
+__- `sudo docker exec -it CONTAINER /bin/bash`__ - *enter an ALREADY running container in bash*
 
 When using `docker-compose` commands, make sure you are in the same directory where the `docker-compose up` was run.
 
