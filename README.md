@@ -54,7 +54,7 @@ e.g. `docker --version` and `docker-compose --version`
 
 When using `docker-compose` commands, make sure you are in the same directory where the `docker-compose up` was run.
 
-- *`sudo docker-compose ps`* - shows all the services running at the moment
+- **_`sudo docker-compose ps`_** - shows all the services running at the moment
 - `sudo docker-compose up --no-deps -d SERVICENAME` - start running a container without starting any linked services
 - `sudo docker-compose stop SERVICENAME` - stop a service and container it is running, BUT does not remove the container
 - `sudo docker-compose exec SERVICENAME /bin/bash` - enter an ALREADY running container through the service running it in bash
