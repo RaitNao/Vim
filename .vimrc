@@ -12,14 +12,7 @@ let python_highlight_all=1
 
 "Plugin 'scrooloose/nerdtree'
 
-"Plugin 'metakirby5/codi.vim'
-" " Interactive scratchpad for All interpreted languages
-"
-"Plugin 'surround.vim'
-"Plugin 'node.vim'
-"install tmux
 "install Ctags
-"Plugin 'ack.vim'
 
 "Plugin 'dhruvasagar/vim-table-mode'
 " " making tables & stuff
@@ -72,7 +65,7 @@ set expandtab
 set smartindent
 
 set nowrap
-set wildignore=*.pyc
+set wildignore=*.pyc,*.swp,*.class,*.o
 
 set autoindent
 set showmode
@@ -98,9 +91,13 @@ set nu
 set hidden
 
 set noerrorbells
+set visualbell
 
 let mapleader = ","
 let g:mapleader = ","
+
+set lazyredraw
+map <silent> <F8> :vs +Explore<CR>
 
 
 au FocusLost * :wa
@@ -108,7 +105,7 @@ au FocusLost * :wa
 nnoremap ; :
 
 
-autocmd FileType html, css EmmetInstall
+autocmd FileType html,css EmmetInstall
 autocmd FileType javascript,java,c nnoremap <buffer> <localleader>c I//<Esc>
 autocmd FileType python nnoremap <buffer> <localleader>c I#<Esc>
 
@@ -117,6 +114,14 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 nnoremap <leader>" viw<Esc>a"<Esc>hbi"<Esc>lel
 nnoremap <leader>' viw<Esc>a'<Esc>hbi'<Esc>lel
+nnoremap <leader>( viw<Esc>a)<Esc>hbi(<Esc>lel
+nnoremap <leader>) viw<Esc>a)<Esc>hbi(<Esc>lel
+nnoremap <leader>{ viw<Esc>a}<Esc>hbi{<Esc>lel
+nnoremap <leader>} viw<Esc>a}<Esc>hbi{<Esc>lel
+nnoremap <leader>[ viw<Esc>a]<Esc>hbi[<Esc>lel
+nnoremap <leader>] viw<Esc>a]<Esc>hbi[<Esc>lel
+nnoremap <leader>< viw<Esc>a><Esc>hbi<<Esc>lel
+nnoremap <leader>> viw<Esc>a><Esc>hbi<<Esc>lel
 
 "add semicolumn at end of line
 inoremap scc <Esc>mqA;<Esc>'q
@@ -126,20 +131,14 @@ inoremap scc <Esc>mqA;<Esc>'q
 nnoremap <S-H> <S-^>
 nnoremap <S-L> <S-$>
 
+vnoremap <S-H> <S-^>
+vnoremap <S-L> <S-$>
+
 
 inoremap <F1> <Esc>
 nnoremap <F1> <Esc>
 vnoremap <F1> <Esc>
 
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-"inoremap <Esc> <nop>
 nnoremap j gj
 nnoremap k gk
 inoremap jk <Esc>

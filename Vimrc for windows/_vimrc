@@ -13,27 +13,49 @@ call vundle#begin(path)
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
+let python_highlight_all=1
+
+"Plugin 'scrooloose/nerdtree'
+
+"install Ctags
+
+"Plugin 'dhruvasagar/vim-table-mode'
+" " making tables & stuff
+Plugin 'vimwiki/vimwiki'
+" " Note taker + the vimwiki plugin allows to write documentation
+" " + links to other self-written wikis
+
+" For web langs
 Plugin 'mattn/emmet-vim'
 
+" Plugins needed for vim-snipmate - make snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'VundleVim/Vundle.vim'
-
+" Status bar + file search
 Plugin 'kien/ctrlp.vim'
-
 Plugin 'bling/vim-airline'
+
+" Finish quotes, brackets, etc.
 Plugin 'raimondi/delimitmate'
+
+" Some vimscript utility
 Plugin 'L9'
+
+" C support
 Plugin 'c.vim'
+
+" Go support
+Plugin 'fatih/vim-go'
+
+" Visuals
+Plugin 'morhetz/gruvbox'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'flazz/vim-colorschemes'
 
-"Plugin 'scrooloose/nerdtree'
-"Plugin 'bronson/vim-trailing-whitespace'
-"Plugin 'sirver/ultisnips'
 
+"Plugin 'sirver/ultisnips'
 
 call vundle#end()            " required
 
@@ -50,7 +72,7 @@ set expandtab
 set smartindent
 
 set nowrap
-set wildignore=*.pyc
+set wildignore=*.pyc,*.swp,*.class,*.o
 
 
 set autoindent
@@ -77,9 +99,14 @@ set nu
 set hidden
 
 set noerrorbells
+set visualbell
 
 
 let mapleader=","
+let g:mapleader = ","
+
+set lazyredraw
+map <silent> <F8> :vs +Explore<CR>
 
 "save as buffers
 au FocusLost * :wa
@@ -97,9 +124,17 @@ autocmd FileType python nnoremap <buffer> <localleader>c I#<Esc>
 " edit vimrc and source it
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-" put double quotes around the word on the cursor
+
 nnoremap <leader>" viw<Esc>a"<Esc>hbi"<Esc>lel
 nnoremap <leader>' viw<Esc>a'<Esc>hbi'<Esc>lel
+nnoremap <leader>( viw<Esc>a)<Esc>hbi(<Esc>lel
+nnoremap <leader>) viw<Esc>a)<Esc>hbi(<Esc>lel
+nnoremap <leader>{ viw<Esc>a}<Esc>hbi{<Esc>lel
+nnoremap <leader>} viw<Esc>a}<Esc>hbi{<Esc>lel
+nnoremap <leader>[ viw<Esc>a]<Esc>hbi[<Esc>lel
+nnoremap <leader>] viw<Esc>a]<Esc>hbi[<Esc>lel
+nnoremap <leader>< viw<Esc>a><Esc>hbi<<Esc>lel
+nnoremap <leader>> viw<Esc>a><Esc>hbi<<Esc>lel
 
 " put a semicolumn at the end of the line
 inoremap scc <Esc>mqA;<Esc>'q
@@ -108,24 +143,19 @@ inoremap scc <Esc>mqA;<Esc>'q
 nnoremap <S-H> <S-^>
 nnoremap <S-L> <S-$>
 
+vnoremap <S-H> <S-^>
+vnoremap <S-L> <S-$>
+
 "prevent F1 click
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-" for practice of hjkl
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-inoremap <Esc> <nop>
 nnoremap j gj
 nnoremap k gk
 inoremap jk <Esc>
+cnoremap q1 q!
+inoremap <C-S> <Esc>:Update<CR>
 
 set background=dark
 colorscheme obsidian2
@@ -176,13 +206,16 @@ autocmd BufWritePre,BufRead *.html setlocal nowrap
 
 
 let g:user_emmet_settings = {
-  \  'xml' : {
-  \    'extends' : 'html',
-  \  },
-  \  'html' : {
-  \    'extends' : 'html',
-  \  },
-  \}
+\ 'php' : {
+\   'extends' : 'html',
+\ },
+\ 'xml' : {
+\   'extends' : 'html',
+\ },
+\ 'html' : {
+\   'extends' : 'html',
+\ },
+\}
 
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
@@ -221,7 +254,6 @@ endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-    autocmd filetype python set expandtab
     autocmd CompleteDone * pclose
     autocmd GUIEnter * set vb t_vb= " for your GUI
     autocmd VimEnter * set vb t_vb=
@@ -279,8 +311,37 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 
 
 
+let g:vimwiki_list = [{'path': '~/VimWiki/vimwiki'}]
+let g:vimwiki_text_ignore_newline=0
+let g:vimwiki_list_ignore_newline=0
+nmap <leader>_ <Plug>VimwikiSplitLink
+nmap <leader><Bar> <Plug>VimwikiVSplitLink
 
 
+if exists('$TMUX')
+    function! TmuxOrSplitSwitch(wincmd, tmuxdir)
+        let previous_winnr = winnr()
+        silent! execute "wincmd " . a:wincmd
+        if previous_winnr == winnr()
+            call system("tmux select-pane -" . a:tmuxdir)
+            redraw!
+        endif
+    endfunction
+
+    let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+    let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+    let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+
+    nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
+    nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
+    nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
+    nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
+else
+    map <C-h> <C-w>h
+    map <C-j> <C-w>j
+    map <C-k> <C-w>k
+    map <C-l> <C-w>l
+endif
 
 
 
