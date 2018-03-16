@@ -49,6 +49,8 @@ Plugin 'morhetz/gruvbox'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'flazz/vim-colorschemes'
 
+" Autocomplete
+Plugin 'valloric/youcompleteme'
 
 "Plugin 'sirver/ultisnips'
 
@@ -70,6 +72,7 @@ set wildignore=*.pyc,*.swp,*.class,*.o
 set autoindent
 set showmode
 set showcmd
+set ruler
 
 set ttyfast
 
@@ -77,8 +80,10 @@ set wildmenu
 set laststatus=2
 
 
+" Ignore case when searching
 nnoremap / /\v
 vnoremap / /\v
+
 set ignorecase
 set smartcase
 set gdefault
@@ -93,15 +98,19 @@ set hidden
 set noerrorbells
 set visualbell
 
+" Remap leader
 let mapleader = ","
 let g:mapleader = ","
 
 set lazyredraw
+
+" Open explorer in vertical split
 map <silent> <F8> :vs +Explore<CR>
 
 
 au FocusLost * :wa
 
+" for faster save
 nnoremap ; :
 
 
@@ -109,9 +118,11 @@ autocmd FileType html,css EmmetInstall
 autocmd FileType javascript,java,c nnoremap <buffer> <localleader>c I//<Esc>
 autocmd FileType python nnoremap <buffer> <localleader>c I#<Esc>
 
+" Sourcing and editing .vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" Surround word with some symbols
 nnoremap <leader>" viw<Esc>a"<Esc>hbi"<Esc>lel
 nnoremap <leader>' viw<Esc>a'<Esc>hbi'<Esc>lel
 nnoremap <leader>( viw<Esc>a)<Esc>hbi(<Esc>lel
@@ -123,55 +134,72 @@ nnoremap <leader>] viw<Esc>a]<Esc>hbi[<Esc>lel
 nnoremap <leader>< viw<Esc>a><Esc>hbi<<Esc>lel
 nnoremap <leader>> viw<Esc>a><Esc>hbi<<Esc>lel
 
-"add semicolumn at end of line
+" add semicolumn at end of line
 inoremap scc <Esc>mqA;<Esc>'q
 
+" Copy into system clipboard
+vmap <C-c> "+y
 
 
+" Move to start and end of line
 nnoremap <S-H> <S-^>
 nnoremap <S-L> <S-$>
-
 vnoremap <S-H> <S-^>
 vnoremap <S-L> <S-$>
 
-
+" Missclick doesnt trigger help
 inoremap <F1> <Esc>
 nnoremap <F1> <Esc>
 vnoremap <F1> <Esc>
 
 nnoremap j gj
 nnoremap k gk
+
+" Alternative exit to normal mode
 inoremap jk <Esc>
+
+" Faster exit
 cnoremap q1 q!
+
+" Save with Ctrl+S
 inoremap <C-S> <Esc>:Update<CR>
 
 
+"" Abbreviations 
 iabbrev retunr return
 iabbrev teh the
 iabbrev @@ kopotuwka@gmail.com
 iabbrev ssig Dong Son Trinh<cr>kopotuwka@gmail.com<cr>
 
 
+" Actually makes newline without breaking at cursor
+inoremap <C-o> <Esc>o
 
+" doesnt quite work
+imap <C-cr> <Esc>o
 inoremap <C-BS> <C-W>
 
+" For indentation
 nnoremap <Tab> >>_
 nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
-
+" Moving between splits
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" Reset search
 nmap <silent> ,/ :nohlsearch<cr>
 
+" HTML
 autocmd BufWritePre *.html :normal! gg=G
 autocmd BufWritePre,BufRead *.html setlocal nowrap
 
+" Emmet settings for xml, html, php
 let g:user_emmet_settings = {
 \ 'php' : {
 \   'extends' : 'html',
@@ -185,19 +213,23 @@ let g:user_emmet_settings = {
 \}
 
 
+" Theme
 set background=dark
 colorscheme gruvbox
 let g:gruvbox_contrast_dark="soft"
 
 
+" YouCompleteMe settings
 let g:ycm_python_binary_path='/usr/bin/python3'
+let g:ycm_min_num_of_chars_for_completion = 2
+
 
 "autocmd vimenter * NERDTree
 "autocmd vimenter * wincmd p
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 syntax enable
 if v:progname =~? "evim"
-finish
+    finish
 endif
 
 
@@ -205,15 +237,13 @@ endif
 set backspace=indent,eol,start
 
 if has("vms")
-set nobackup		" do not keep a backup file, use versions instead
+    set nobackup		" do not keep a backup file, use versions instead
 else
-set backup		" keep a backup file (restore to previous version)
-set undofile		" keep an undo file (undo changes after closing)
+    set backup		" keep a backup file (restore to previous version)
+    set undofile		" keep an undo file (undo changes after closing)
 endif
+
 set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -222,31 +252,31 @@ map Q gq
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" In many terminal emulators the mouse works just fine, thus enable it.
+" Enable mouse
 if has('mouse')
-set mouse=a
+    set mouse=a
 endif
 
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
-" Put these in an autocmd group, so that we can delete them easily.
-augroup vimrcEx
-au!
+    " Put these in an autocmd group, so that we can delete them easily.
+    augroup vimrcEx
+    au!
 
-" For all text files set 'textwidth' to 78 characters.
-autocmd FileType text setlocal textwidth=78
+    " For all text files set 'textwidth' to 78 characters.
+    autocmd FileType text setlocal textwidth=78
 
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-" (happens when dropping a file on gvim).
-autocmd BufReadPost *
-\ if line("'\"") >= 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid or when inside an event handler
+    " (happens when dropping a file on gvim).
+    autocmd BufReadPost *
+    \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
 
-  augroup END
+      augroup END
 endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
@@ -265,6 +295,8 @@ if has('langmap') && exists('+langnoremap')
 endif
 
 
+" Completion functions
+set omnifunc=syntaxcomplete#Complete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#Complete
 autocmd FileType html set omnifunc=htmlcomplete#Complete
@@ -272,20 +304,24 @@ autocmd FileType css set omnifunc=csscomplete#Complete
 autocmd FileType xml set omnifunc=xmlcomplete#Complete
 autocmd FileType php set omnifunc=phpcomplete#Complete
 autocmd FileType c set omnifunc=ccomplete#Complete
-" Add optional packages.
-"
-" The matchit plugin makes the % command work better, but it is not backwards
-" compatible.
+
+" The matchit plugin makes the % command work better
 packadd matchit
 
-
+" Vimwiki
 let g:vimwiki_list = [{'path': '~/VimWiki/vimwiki'}]
 let g:vimwiki_text_ignore_newline=0
 let g:vimwiki_list_ignore_newline=0
 nmap <leader>_ <Plug>VimwikiSplitLink
 nmap <leader><Bar> <Plug>VimwikiVSplitLink
 
+" Ctrlp editing file options
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
+    \ 'OpenMulti()': ['<cr>'],
+    \ }
 
+" Tmux integration
 if exists('$TMUX')
     function! TmuxOrSplitSwitch(wincmd, tmuxdir)
         let previous_winnr = winnr()
